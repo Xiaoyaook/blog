@@ -1,8 +1,8 @@
 -- 留言/评论表
-CREATE TABLE `tbl_message` (
+CREATE TABLE `comment` (
   `id` bigint(40) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `content` varchar(200) NOT NULL DEFAULT '' COMMENT '留言/评论内容',
-  `create_by` datetime NOT NULL COMMENT '创建日期',
+  `create_by` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
   `email` varchar(20) NOT NULL DEFAULT '' COMMENT '邮箱，用于回复消息',
   `name` varchar(20) NOT NULL DEFAULT '' COMMENT '用户自己定义的名称',
   `ip` varchar(20) NOT NULL DEFAULT '' COMMENT '留言/评论IP',
