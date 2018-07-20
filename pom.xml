@@ -63,6 +63,11 @@
             <version>2.7.0</version>
         </dependency>
 
+        <!-- 单元测试依赖 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
         <!--SpringBoot测试支持-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

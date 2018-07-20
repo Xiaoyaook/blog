@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ziliang.blog.dao.ArticleContentMapper">
+    <resultMap id="ArticleContentResultMap" type="com.ziliang.blog.entity.ArticleContent">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="article_id" jdbcType="BIGINT" property="articleId" />
+        <result column="create_by" jdbcType="TIMESTAMP" property="createBy" />
+        <result column="modifield_by" jdbcType="TIMESTAMP" property="modifieldBy" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, content, article_id, create_by, modifield_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ArticleContentResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from article_content
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByArticleId" parameterType="java.lang.Long" resultMap="ArticleContentResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from article_content
+        where article_id = #{articleId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from article_content
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ziliang.blog.entity.ArticleContent" useGeneratedKeys="true">
+        insert into article_content (content, article_id, create_by,
+          modifield_by)
+        values (#{content,jdbcType=VARCHAR}, #{articleId,jdbcType=BIGINT}, #{createBy,jdbcType=TIMESTAMP},
+          #{modifieldBy,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ziliang.blog.entity.ArticleContent" useGeneratedKeys="true">
+        insert into article_content
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="content != null">
+                content,
+            </if>
+            <if test="articleId != null">
+                article_id,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="modifieldBy != null">
+                modifield_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="articleId != null">
+                #{articleId,jdbcType=BIGINT},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifieldBy != null">
+                #{modifieldBy,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.ziliang.blog.entity.ArticleContent">
+        update article_content
+        <set>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="articleId != null">
+                article_id = #{articleId,jdbcType=BIGINT},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifieldBy != null">
+                modifield_by = #{modifieldBy,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.ziliang.blog.entity.ArticleContent">
+        update article_content
+        set content = #{content,jdbcType=VARCHAR},
+          article_id = #{articleId,jdbcType=BIGINT},
+          create_by = #{createBy,jdbcType=TIMESTAMP},
+          modifield_by = #{modifieldBy,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

@@ -1,0 +1,4 @@
+# 个人博客搭建
+
+现在发现的一个问题是：Service中耦合的Mapper太多，应该将Service分的更细一些，
+应该在Service之间互相调用，而不是注入太多Mapper
