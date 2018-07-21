@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  *
  */
 @Api(value = "文章管理controller", tags = {"文章管理"})
+@CrossOrigin(origins = {"http://localhost:8081"}, allowCredentials = "true")
 @RestController
 @RequestMapping("/admin")
 public class ArticleController {
