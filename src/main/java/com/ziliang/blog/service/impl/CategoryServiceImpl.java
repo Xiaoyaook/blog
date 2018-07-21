@@ -9,6 +9,7 @@ import com.ziliang.blog.entity.CategoryInfo;
 import com.ziliang.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @param id 分类ID
      */
     @Override
+    @Transactional
     public void deleteCategoryById(Long id) {
         // 先删除ArticleCategory表中的相关内容
         List<ArticleCategory> categories = articleCategoryMapper.selectAllArticleCategoryByCategoryId(id);

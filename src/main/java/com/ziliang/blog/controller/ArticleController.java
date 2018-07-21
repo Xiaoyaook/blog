@@ -1,6 +1,8 @@
 package com.ziliang.blog.controller;
 
 import com.ziliang.blog.dto.ArticleDto;
+import com.ziliang.blog.result.CodeMsg;
+import com.ziliang.blog.result.Result;
 import com.ziliang.blog.service.ArticleService;
 import com.ziliang.blog.service.CategoryService;
 import io.swagger.annotations.Api;
@@ -36,10 +38,13 @@ public class ArticleController {
             @ApiImplicitParam(name = "content", value = "文章md源码", required = true, dataType = "String"),
             @ApiImplicitParam(name = "pictureUrl", value = "文章题图url", required = true, dataType = "String")
     })
-    @PostMapping("article/")
-    public String addArticle(@RequestBody ArticleDto articleDto) {
+    @PostMapping(value = "/article")
+    public Result<CodeMsg> addArticle(ArticleDto articleDto) {
+        // 注意我们这里参数直接是ArticleDto， 没有用@RequestBody转化。
+        // 我们前端post的数据类型是application/x-www-form-urlencoded，或者我们也可以发json
+        // 但使用了@RequestBody后，都会抛出HttpMediaTypeNotSupportedException异常
         articleService.addArticle(articleDto);
-        return null;
+        return Result.success(CodeMsg.ADD_ARTICLE_SUCCESS);
     }
 
     /**
@@ -50,10 +55,10 @@ public class ArticleController {
      */
     @ApiOperation("删除一篇文章")
     @ApiImplicitParam(name = "id", value = "文章ID", required = true, dataType = "Long")
-    @DeleteMapping("article/{id}")
-    public String deleteArticle(@PathVariable Long id) {
+    @DeleteMapping("/article/{id}")
+    public Result<CodeMsg> deleteArticle(@PathVariable Long id) {
         articleService.deleteArticleById(id);
-        return null;
+        return Result.success(CodeMsg.DELETE_ARTICLE_SUCCESS);
     }
 
     /**
@@ -61,7 +66,7 @@ public class ArticleController {
      *
      * @return
      */
-    @ApiOperation("编辑/更新一篇文章")
+    @ApiOperation("/编辑/更新一篇文章")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "title", value = "文章标题", required = true, dataType = "String"),
             @ApiImplicitParam(name = "summary", value = "文章简介", required = true, dataType = "String"),
@@ -70,11 +75,11 @@ public class ArticleController {
             @ApiImplicitParam(name = "content", value = "文章md源码", required = true, dataType = "String"),
             @ApiImplicitParam(name = "pictureUrl", value = "文章题图url", required = true, dataType = "String")
     })
-    @PutMapping("article/{id}")
-    public String updateArticle(@PathVariable Long id, @RequestBody ArticleDto articleDto) {
+    @PutMapping("/article/{id}")
+    public Result<CodeMsg> updateArticle(@PathVariable Long id, @RequestBody ArticleDto articleDto) {
         articleDto.setId(id);
         articleService.updateArticle(articleDto);
-        return null;
+        return Result.success(CodeMsg.UPDATE_ARTICLE_SUCCESS);
     }
 
     /**
@@ -88,10 +93,10 @@ public class ArticleController {
             @ApiImplicitParam(name = "id", value = "文章ID", required = true, dataType = "Long"),
             @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long"),
     })
-    @PutMapping("article/sort/{id}")
-    public String changeArticleCategory(@PathVariable Long id, Long categoryId) {
+    @PutMapping("/article/sort/{id}")
+    public Result<CodeMsg> changeArticleCategory(@PathVariable Long id, Long categoryId) {
         articleService.updateArticleCategory(id, categoryId);
-        return null;
+        return Result.success(CodeMsg.UPDATE_ARTICLE_CATEGORY_SUCCESS);
     }
 
     /**
@@ -105,12 +110,12 @@ public class ArticleController {
             @ApiImplicitParam(name = "id", value = "文章ID", required = true, dataType = "Long"),
             @ApiImplicitParam(name = "pictureUrl", value = "题图URL", required = true, dataType = "String")
     })
-    @PutMapping("article/picture/{id}")
-    public String updateArticlePicture(@PathVariable Long id, String pictureUrl) {
+    @PutMapping("/article/picture/{id}")
+    public Result<CodeMsg> updateArticlePicture(@PathVariable Long id, String pictureUrl) {
         ArticleDto articleDto = articleService.getOneById(id);
         articleDto.setPictureUrl(pictureUrl);
         articleService.updateArticle(articleDto);
-        return null;
+        return Result.success(CodeMsg.UPDATE_ARTICLE_PICTURE_SUCCESS);
     }
 
     /**
@@ -121,8 +126,8 @@ public class ArticleController {
      */
     @ApiOperation("获取一篇文章，内容为md源码格式")
     @ApiImplicitParam(name = "id", value = "文章ID", required = true, dataType = "Long")
-    @GetMapping("article/{id}")
-    public ArticleDto getArticleDtoById(@PathVariable Long id) {
-        return articleService.getOneById(id);
+    @GetMapping("/article/{id}")
+    public Result<ArticleDto> getArticleDtoById(@PathVariable Long id) {
+        return Result.success(articleService.getOneById(id));
     }
 }

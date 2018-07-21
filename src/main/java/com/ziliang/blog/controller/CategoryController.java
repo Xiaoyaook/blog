@@ -1,6 +1,8 @@
 package com.ziliang.blog.controller;
 
 import com.ziliang.blog.entity.CategoryInfo;
+import com.ziliang.blog.result.CodeMsg;
+import com.ziliang.blog.result.Result;
 import com.ziliang.blog.service.ArticleService;
 import com.ziliang.blog.service.CategoryService;
 import io.swagger.annotations.Api;
@@ -30,9 +32,9 @@ public class CategoryController {
     @ApiOperation("增加分类信息")
     @ApiImplicitParam(name = "name", value = "分类名称", required = true, dataType = "String")
     @PostMapping("category")
-    public String addCategoryInfo(@RequestBody CategoryInfo categoryInfo) {
+    public Result<CodeMsg> addCategoryInfo(@RequestBody CategoryInfo categoryInfo) {
         categoryService.addCategory(categoryInfo);
-        return null;
+        return Result.success(CodeMsg.ADD_CATEGORY_SUCCESS);
     }
 
     /**
@@ -47,9 +49,9 @@ public class CategoryController {
             @ApiImplicitParam(name = "name", value = "分类名称", required = true, dataType = "String")
     })
     @PutMapping("category/{id}")
-    public String updateCategoryInfo(@PathVariable Long id, @RequestBody CategoryInfo categoryInfo) {
+    public Result<CodeMsg> updateCategoryInfo(@PathVariable Long id, @RequestBody CategoryInfo categoryInfo) {
         categoryService.updateCategory(categoryInfo);
-        return null;
+        return Result.success(CodeMsg.UPDATE_CATEGORY_SUCCESS);
     }
 
     /**
@@ -61,9 +63,9 @@ public class CategoryController {
     @ApiOperation("删除分类信息")
     @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long")
     @DeleteMapping("category/{id}")
-    public String deleteCategoryInfo(@PathVariable Long id) {
+    public Result<CodeMsg> deleteCategoryInfo(@PathVariable Long id) {
         categoryService.deleteCategoryById(id);
-        return null;
+        return Result.success(CodeMsg.DELETE_CATEGORY_SUCCESS);
     }
 
     /**
@@ -75,8 +77,8 @@ public class CategoryController {
     @ApiOperation("获取某一条分类信息")
     @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long")
     @GetMapping("category/{id}")
-    public CategoryInfo getCategoryInfo(@PathVariable Long id) {
-        return categoryService.getOneById(id);
+    public Result<CategoryInfo> getCategoryInfo(@PathVariable Long id) {
+        return Result.success(categoryService.getOneById(id));
     }
 
 }

@@ -8,6 +8,7 @@ import com.ziliang.blog.entity.*;
 import com.ziliang.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,8 +18,11 @@ import java.util.List;
 /**
  * 文章Service实现类
  * 说明：ArticleInfo里面封装了picture/content/category等信息
+ *
+ * 使用事务，保证出现数据异常时进行回滚，防止各个表数据不一致
  */
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
