@@ -94,7 +94,7 @@ public class ArticleController {
             @ApiImplicitParam(name = "id", value = "文章ID", required = true, dataType = "Long"),
             @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long"),
     })
-    @PutMapping("/article/sort/{id}")
+    @PutMapping("/article/category/{id}")
     public Result<CodeMsg> changeArticleCategory(@PathVariable Long id, Long categoryId) {
         articleService.updateArticleCategory(id, categoryId);
         return Result.success(CodeMsg.UPDATE_ARTICLE_CATEGORY_SUCCESS);

@@ -49,11 +49,11 @@ public class ArticleComment {
         this.createBy = createBy;
     }
 
-    public Boolean getEffective() {
+    public Boolean getIsEffective() {
         return isEffective;
     }
 
-    public void setEffective(Boolean effective) {
+    public void setIsEffective(Boolean effective) {
         isEffective = effective;
     }
 }

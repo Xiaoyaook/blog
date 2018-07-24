@@ -20,6 +20,11 @@ public class CodeMsg {
     public static CodeMsg DELETE_CATEGORY_SUCCESS = new CodeMsg(0, "分类删除成功");
     public static CodeMsg UPDATE_CATEGORY_SUCCESS = new CodeMsg(0, "分类更新成功");
 
+    //评论操作信息
+    public static CodeMsg DELETE_COMMENT_SUCCESS = new CodeMsg(0, "留言删除成功");
+    public static CodeMsg DELETE_ARTICLE_COMMENT_SUCCESS = new CodeMsg(0, "评论删除成功");
+
+
     //通用异常
     public static CodeMsg SUCCESS = new CodeMsg(0, "success");
     public static CodeMsg SERVER_ERROR = new CodeMsg(500100, "服务端异常");

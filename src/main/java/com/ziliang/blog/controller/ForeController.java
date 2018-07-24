@@ -49,7 +49,7 @@ public class ForeController {
      */
     @ApiOperation("获取某一个分类下的所有文章")
     @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long")
-    @GetMapping("article/list/sort/{id}")
+    @GetMapping("article/list/category/{id}")
     public Result<List<ArticleWithPictureDto>> listArticleInfo(@PathVariable Long id) {
         return Result.success(articleService.listByCategoryId(id));
     }
