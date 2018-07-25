@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ziliang.blog.dao.SysViewMapper">
+    <resultMap id="SysViewResultMap" type="com.ziliang.blog.entity.SysView">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="ip" jdbcType="VARCHAR" property="ip" />
+        <result column="create_by" jdbcType="TIMESTAMP" javaType="java.sql.Date" property="createBy" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, ip, create_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="SysViewResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_view
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectAllSysView" resultMap="SysViewResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_view
+    </select>
+
+    <select id="numOfSysView" resultType="int">
+        select count(*) as num_sys_view
+        from sys_view
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_view
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ziliang.blog.entity.SysView" useGeneratedKeys="true">
+        insert into sys_view (ip, create_by)
+        values (#{ip,jdbcType=VARCHAR}, #{createBy,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ziliang.blog.entity.SysView" useGeneratedKeys="true">
+        insert into sys_view
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.ziliang.blog.entity.SysView">
+        update sys_view
+        <set>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.ziliang.blog.entity.SysView">
+        update sys_view
+        set ip = #{ip,jdbcType=VARCHAR},
+          create_by = #{createBy,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>
