@@ -1,5 +1,6 @@
 package com.ziliang.blog.config;
 
+import com.ziliang.blog.interceptor.AdminVerificationInterceptor;
 import com.ziliang.blog.interceptor.SysMessageInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     SysMessageInterceptor sysMessageInterceptor;
 
+    @Autowired
+    AdminVerificationInterceptor adminVerificationInterceptor;
+
     /**
      * 拦截器
      *
@@ -24,7 +28,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns 用于添加拦截规则
-        // excludePathPatterns 用户排除拦截
-        registry.addInterceptor(sysMessageInterceptor).addPathPatterns("/**").excludePathPatterns("/toLogin", "/admin/**", "/js/**", "/css/**", "/img/**");
+        // excludePathPatterns 用于排除拦截
+        registry.addInterceptor(sysMessageInterceptor).addPathPatterns("/**").excludePathPatterns("/login/do_login", "/admin/**", "/js/**", "/css/**", "/img/**");
+        registry.addInterceptor(adminVerificationInterceptor).addPathPatterns("/admin/**").excludePathPatterns("/login/do_login");
     }
 }

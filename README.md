@@ -1,4 +1,13 @@
-# 个人博客搭建
+# 个人博客
 
-现在发现的一个问题是：Service中耦合的Mapper太多，应该将Service分的更细一些，
-应该在Service之间互相调用，而不是注入太多Mapper
+项目技术： SpringBoot，Mybatis，Druid，Swagger2
+
+利用拦截器对访问量进行统计，对后台管理页面进行权限管理，使访客无权限进入。
+
+后台需求分析：
+![需求](./photos/博客后台管理.png)
+
+Swagger生成的API文档:
+![API文档](./photos/个人博客API.png)
+
+
