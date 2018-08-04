@@ -52,7 +52,7 @@ public class ArticleServiceImpl implements ArticleService {
         articleInfo.setTitle(articleDto.getTitle());
         articleInfo.setSummary(articleDto.getSummary());
         articleInfoMapper.insertSelective(articleInfo);
-        // 获取刚才插入文章信息的ID
+        // 获取刚才插入文章ArticleWithPictureDto信息的ID
         // Long articleId = getArticleLastestId();
         Long articleId = articleInfo.getId();
         // 增加文章题图信息 - pictureUrl/articleId
@@ -235,6 +235,11 @@ public class ArticleServiceImpl implements ArticleService {
             articleWithPictureDto.setSummary(articleInfo.getSummary());
             articleWithPictureDto.setTop(articleInfo.getIsTop());
             articleWithPictureDto.setTraffic(articleInfo.getTraffic());
+            articleWithPictureDto.setCreateBy(articleInfo.getCreateBy());
+            // 填充文章分类信息
+            CategoryInfo categoryInfo = categoryInfoMapper.selectByPrimaryKey(id);
+            articleWithPictureDto.setCategoryId(id);
+            articleWithPictureDto.setCategoryName(categoryInfo.getName());
             // 填充文章图片信息
             ArticlePicture articlePicture = articlePictureMapper.selectByArticleId(articleId);
             articleWithPictureDto.setArticlePictureId(articlePicture.getId());
@@ -309,6 +314,13 @@ public class ArticleServiceImpl implements ArticleService {
             articleWithPictureDto.setSummary(articleInfo.getSummary());
             articleWithPictureDto.setTop(articleInfo.getIsTop());
             articleWithPictureDto.setTraffic(articleInfo.getTraffic());
+            articleWithPictureDto.setCreateBy(articleInfo.getCreateBy());
+            // 填充文章分类信息
+            ArticleCategory articleCategory = articleCategoryMapper.selectArticleCategoryByArticleId(articleInfo.getId());
+            CategoryInfo categoryInfo = categoryInfoMapper.selectByPrimaryKey(articleCategory.getCategoryId());
+
+            articleWithPictureDto.setCategoryId(categoryInfo.getId());
+            articleWithPictureDto.setCategoryName(categoryInfo.getName());
             // 填充文章题图信息
             ArticlePicture articlePicture = articlePictureMapper.selectByArticleId(articleInfo.getId());
             articleWithPictureDto.setArticlePictureId(articlePicture.getId());

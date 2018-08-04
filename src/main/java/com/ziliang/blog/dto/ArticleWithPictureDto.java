@@ -1,5 +1,9 @@
 package com.ziliang.blog.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 /**
  * 带题图信息的文章基础信息分装类
  */
@@ -10,10 +14,41 @@ public class ArticleWithPictureDto {
     private String summary;             // 文章简介
     private Boolean isTop;              // 文章是否置顶
     private Integer traffic;            // 文章阅读量
+    private Date createBy;              // 文章创建时间
+
+    // category_info基础字段
+    private Long categoryId;            // 分类ID
+    private String categoryName;        // 分类名称
 
     // article_picture基础字段
     private Long articlePictureId;      // ArticlePicture主键
     private String pictureUrl;          // 文章题图URL
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    public Date getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Date createBy) {
+        this.createBy = createBy;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public Long getId() {
         return id;
@@ -79,6 +114,9 @@ public class ArticleWithPictureDto {
                 ", summary='" + summary + '\'' +
                 ", isTop=" + isTop +
                 ", traffic=" + traffic +
+                ", createBy=" + createBy +
+                ", categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
                 ", articlePictureId=" + articlePictureId +
                 ", pictureUrl='" + pictureUrl + '\'' +
                 '}';

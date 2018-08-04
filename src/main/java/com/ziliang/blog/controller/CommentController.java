@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "评论管理controller", tags = {"评论管理"})
 @CrossOrigin(origins = {"http://localhost:8081"}, allowCredentials = "true")
 @RestController
-@RequestMapping("/admin")
 public class CommentController {
 
     @Autowired

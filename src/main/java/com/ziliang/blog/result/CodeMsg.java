@@ -23,6 +23,8 @@ public class CodeMsg {
     //评论操作信息
     public static CodeMsg DELETE_COMMENT_SUCCESS = new CodeMsg(0, "留言删除成功");
     public static CodeMsg DELETE_ARTICLE_COMMENT_SUCCESS = new CodeMsg(0, "评论删除成功");
+    public static CodeMsg ADD_ARTICLE_COMMENT_SUCCESS = new CodeMsg(0, "评论添加成功");
+    public static CodeMsg ADD_COMMENT_SUCCESS = new CodeMsg(0, "留言添加成功");
 
 
     //通用异常

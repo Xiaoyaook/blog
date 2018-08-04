@@ -27,12 +27,14 @@ public class ArticleServiceImplTest {
     @Test
     public void addArticleTest() {
         ArticleDto articleDto = new ArticleDto();
-        articleDto.setTitle("t");
-        articleDto.setSummary("tttt");
+        articleDto.setTitle("the new");
+        articleDto.setSummary("new new new");
 
         articleDto.setPictureUrl("./img/t.jpg");
 
-        articleDto.setContent("aaaaaaaaaaa");
+        articleDto.setContent("# 123" +
+                "### 123" +
+                "`asdf`");
 
         articleDto.setCategoryId(1L);
 
@@ -42,7 +44,7 @@ public class ArticleServiceImplTest {
     @Ignore
     @Test
     public void deleteArticleByIdTest() {
-        articleService.deleteArticleById(1L);
+        articleService.deleteArticleById(12L);
     }
 
     @Ignore

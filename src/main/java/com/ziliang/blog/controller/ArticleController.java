@@ -1,6 +1,7 @@
 package com.ziliang.blog.controller;
 
 import com.ziliang.blog.dto.ArticleDto;
+import com.ziliang.blog.dto.ArticleWithPictureDto;
 import com.ziliang.blog.result.CodeMsg;
 import com.ziliang.blog.result.Result;
 import com.ziliang.blog.service.ArticleService;
@@ -9,8 +10,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 文章管理Controller
@@ -19,8 +27,10 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "文章管理controller", tags = {"文章管理"})
 @CrossOrigin(origins = {"http://localhost:8081"}, allowCredentials = "true")
 @RestController
-@RequestMapping("/admin")
+// @RequestMapping("/admin") 所有后台操作Controller都使用/admin会出现Bug，全部去掉
 public class ArticleController {
+
+    private static Logger log = LoggerFactory.getLogger(ArticleController.class);
 
     @Autowired
     ArticleService articleService;
@@ -58,6 +68,7 @@ public class ArticleController {
     @ApiImplicitParam(name = "id", value = "文章ID", required = true, dataType = "Long")
     @DeleteMapping("/article/{id}")
     public Result<CodeMsg> deleteArticle(@PathVariable Long id) {
+        log.info("删除文章");
         articleService.deleteArticleById(id);
         return Result.success(CodeMsg.DELETE_ARTICLE_SUCCESS);
     }

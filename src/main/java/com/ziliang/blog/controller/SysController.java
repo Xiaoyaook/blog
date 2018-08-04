@@ -21,7 +21,6 @@ import java.util.List;
 @Api(value = "系统管理controller", tags = {"系统管理"})
 @CrossOrigin(origins = {"http://localhost:8081"}, allowCredentials = "true")
 @RestController
-@RequestMapping("/admin")
 public class SysController {
 
     @Autowired
