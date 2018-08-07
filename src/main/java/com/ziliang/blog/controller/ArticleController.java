@@ -88,7 +88,7 @@ public class ArticleController {
             @ApiImplicitParam(name = "pictureUrl", value = "文章题图url", required = true, dataType = "String")
     })
     @PutMapping("/article/{id}")
-    public Result<CodeMsg> updateArticle(@PathVariable Long id, @RequestBody ArticleDto articleDto) {
+    public Result<CodeMsg> updateArticle(@PathVariable Long id,ArticleDto articleDto) {
         articleDto.setId(id);
         articleService.updateArticle(articleDto);
         return Result.success(CodeMsg.UPDATE_ARTICLE_SUCCESS);

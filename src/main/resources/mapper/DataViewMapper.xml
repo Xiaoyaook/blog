@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ziliang.blog.dao.DataViewMapper">
+    <resultMap id="DataViewResultMap" type="com.ziliang.blog.entity.DataView">
+        <result column="d" jdbcType="TIMESTAMP" javaType="java.util.Date" property="date" />
+        <result column="c" jdbcType="BIGINT" property="count" />
+    </resultMap>
+
+    <select id="selectSysLogNowMonth" resultMap="DataViewResultMap">
+        select DATE_FORMAT(md.date,'%Y-%m-%d') d,count(s.id) c from my_date md
+        left join sys_log s on DATE_FORMAT(md.date,'%Y-%m-%d') = DATE_FORMAT(s.create_by,'%Y-%m-%d')
+        where DATE_FORMAT(md.date,'%Y-%m') = DATE_FORMAT(curdate(),'%Y-%m')
+        group by d
+    </select>
+</mapper>

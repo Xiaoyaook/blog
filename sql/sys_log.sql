@@ -9,3 +9,6 @@ CREATE TABLE `sys_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+SELECT DATE_FORMAT( create_by, "%Y-%m-%d" ) , COUNT( id )
+FROM sys_log
+GROUP BY DATE_FORMAT( create_by, "%Y-%m-%d" );

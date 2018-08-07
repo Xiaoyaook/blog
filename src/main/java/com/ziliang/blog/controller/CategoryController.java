@@ -32,7 +32,7 @@ public class CategoryController {
     @ApiOperation("增加分类信息")
     @ApiImplicitParam(name = "name", value = "分类名称", required = true, dataType = "String")
     @PostMapping("category")
-    public Result<CodeMsg> addCategoryInfo(@RequestBody CategoryInfo categoryInfo) {
+    public Result<CodeMsg> addCategoryInfo(CategoryInfo categoryInfo) {
         categoryService.addCategory(categoryInfo);
         return Result.success(CodeMsg.ADD_CATEGORY_SUCCESS);
     }
