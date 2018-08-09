@@ -13,4 +13,11 @@
         where DATE_FORMAT(md.date,'%Y-%m') = DATE_FORMAT(curdate(),'%Y-%m')
         group by d
     </select>
+
+    <select id="selectSysViewNowMonth" resultMap="DataViewResultMap">
+        select DATE_FORMAT(md.date,'%Y-%m-%d') d,count(s.id) c from my_date md
+        left join sys_view s on DATE_FORMAT(md.date,'%Y-%m-%d') = DATE_FORMAT(s.create_by,'%Y-%m-%d')
+        where DATE_FORMAT(md.date,'%Y-%m') = DATE_FORMAT(curdate(),'%Y-%m')
+        group by d
+    </select>
 </mapper>

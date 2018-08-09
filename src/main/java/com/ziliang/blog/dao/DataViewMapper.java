@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DataViewMapper {
     List<DataView> selectSysLogNowMonth();
+
+    List<DataView> selectSysViewNowMonth();
 }

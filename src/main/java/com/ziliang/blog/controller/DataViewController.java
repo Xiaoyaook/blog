@@ -35,4 +35,16 @@ public class DataViewController {
     public Result<List<DataView>> listSysLogDataViewNowMonth() {
         return Result.success(dataViewService.showSysLogDataViewNowMonth());
     }
+
+    /**
+     * 返回这个月的SysView计数信息
+     * @return
+     */
+    @ApiOperation("返回这个月的SysView计数信息，日期->操作数")
+    @GetMapping("/thismonth/sysview")
+    public Result<List<DataView>> listSysViewDataViewNowMonth() {
+        return Result.success(dataViewService.showSysViewDataViewNowMonth());
+    }
+
+
 }

@@ -25,4 +25,9 @@ public class DataViewServiceImpl implements DataViewService {
     public List<DataView> showSysLogDataViewNowMonth() {
         return dataViewMapper.selectSysLogNowMonth();
     }
+
+    @Override
+    public List<DataView> showSysViewDataViewNowMonth() {
+        return dataViewMapper.selectSysViewNowMonth();
+    }
 }

@@ -1,8 +1,12 @@
 # 个人博客
 
-项目技术： SpringBoot，Mybatis，Druid，Swagger2
+项目技术： SpringBoot，Mybatis，Druid，Swagger2，Vue
 
-利用拦截器对访问量进行统计，对后台管理页面进行权限管理，使访客无权限进入。
+利用拦截器对访问量等数据进行统计，传到前端做数据可视化操作。
+
+利用拦截器进行权限管理，使访客无权限进入管理页面。
+
+前端部分： [blogMaster](https://github.com/Xiaoyaook/try-vue/tree/master/blogmaster)
 
 后台需求分析：
 ![需求](./photos/博客后台管理.png)
