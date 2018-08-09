@@ -5,12 +5,10 @@ import com.ziliang.blog.entity.SysView;
 import com.ziliang.blog.result.Result;
 import com.ziliang.blog.service.SysService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,25 +25,36 @@ public class SysController {
     SysService sysService;
 
     /**
-     * 返回所有的系统日志记录信息
+     * 如果前端传来页码，就按页码取信息
+     * 否则返回所有的系统日志记录信息
      *
      * @return
      */
-    @ApiOperation("返回所有的SysLog信息")
+    @ApiOperation("返回SysLog信息")
+    @ApiImplicitParam(name = "pageNum", value = "页码数", required = false, dataType = "Integer")
     @GetMapping("/sys/log")
-    public Result<List<SysLog>> listAllLog() {
+    public Result<List<SysLog>> listAllLog(@RequestParam(required = false) Integer pageNum) {
+        if (pageNum != null) {
+            return Result.success(sysService.listLogByPage(pageNum, 8)); // 一页有多少数据就由后端指定
+        }
         return Result.success(sysService.listAllLog());
     }
 
     /**
+     * 如果前端传来页码，就按页码取信息
      * 返回所有的系统浏览记录信息
      *
      * @return
      */
     @ApiOperation("返回所有的SysView信息")
+    @ApiImplicitParam(name = "pageNum", value = "页码数", required = false, dataType = "Integer")
     @GetMapping("/sys/view")
-    public Result<List<SysView>> listAllView() {
+    public Result<List<SysView>> listAllView(@RequestParam(required = false) Integer pageNum) {
+        if (pageNum != null) {
+            return Result.success(sysService.listViewByPage(pageNum, 8)); // 一页有多少数据就由后端指定
+        }
         return Result.success(sysService.listAllView());
     }
+
 
 }

@@ -23,6 +23,7 @@
         select
         <include refid="Base_Column_List" />
         from sys_view
+        order by create_by desc
     </select>
 
     <select id="numOfSysView" resultType="int">

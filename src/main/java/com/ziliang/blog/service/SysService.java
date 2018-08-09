@@ -20,5 +20,9 @@ public interface SysService {
 
     List<SysLog> listAllLog();
 
+    List<SysLog> listLogByPage(int pageNum, int pageSize);
+
     List<SysView> listAllView();
+
+    List<SysView> listViewByPage(int pageNum, int pageSize);
 }

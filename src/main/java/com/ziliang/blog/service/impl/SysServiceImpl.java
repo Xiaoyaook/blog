@@ -1,5 +1,6 @@
 package com.ziliang.blog.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.ziliang.blog.dao.SysLogMapper;
 import com.ziliang.blog.dao.SysViewMapper;
 import com.ziliang.blog.entity.SysLog;
@@ -73,12 +74,34 @@ public class SysServiceImpl implements SysService {
     }
 
     /**
+     * 返回所选页面的日志信息
+     *
+     * @return
+     */
+    @Override
+    public List<SysLog> listLogByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return sysLogMapper.selectAllSysLog();
+    }
+
+    /**
      * 返回所有的访问信息
      *
      * @return
      */
     @Override
     public List<SysView> listAllView() {
+        return sysViewMapper.selectAllSysView();
+    }
+
+    /**
+     * 返回所选页面的访问信息
+     *
+     * @return
+     */
+    @Override
+    public List<SysView> listViewByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return sysViewMapper.selectAllSysView();
     }
 }

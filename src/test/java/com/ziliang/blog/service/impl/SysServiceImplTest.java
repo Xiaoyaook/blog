@@ -70,10 +70,19 @@ public class SysServiceImplTest {
 
     @Ignore
     @Test
-    public void listAllView() {
+    public void listAllViewTest() {
         List<SysView> viewList = sysService.listAllView();
         for (SysView sysView: viewList) {
             System.out.println(sysView);
+        }
+    }
+
+
+    @Test
+    public void listLogByPageTest() {
+        List<SysLog> logList = sysService.listLogByPage(2,8);
+        for (SysLog sysLog: logList) {
+            System.out.println(sysLog);
         }
     }
 }
