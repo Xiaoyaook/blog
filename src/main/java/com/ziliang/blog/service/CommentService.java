@@ -19,5 +19,7 @@ public interface CommentService {
 
     List<Comment> listAllComment();
 
+    List<Comment> listCommentByPage(int pageNum, int pageSize);
+
     List<ArticleCommentDto> listAllArticleCommentById(Long id);
 }

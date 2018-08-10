@@ -40,27 +40,39 @@ public class ForeController {
     CommentService commentService;
 
     /**
-     * 获取所有文章列表
+     * 获取文章列表,有页码则返回当页数据
      *
      * @return
      */
-    @ApiOperation("获取所有文章")
+    @ApiOperation("获取文章列表")
+    @ApiImplicitParam(name = "pageNum", value = "页码数", required = false, dataType = "Integer")
     @GetMapping("article/list")
-    public Result<List<ArticleWithPictureDto>> listAllArticleInfo() {
-        return Result.success(articleService.listAll());
+    public Result<List<ArticleWithPictureDto>> listArticleInfo(@RequestParam(required = false) Integer pageNum) {
+        if (pageNum != null) {
+            return Result.success(articleService.listArticle(pageNum, 8)); // 一页有多少数据就由后端指定
+        }
+        return Result.success(articleService.listArticle(null, null));
     }
 
     /**
-     * 获取某一个分类下的所有文章
+     * 获取某一个分类下的所有文章，
+     * 有页码则返回当页数据
      *
      * @param id
      * @return
      */
-    @ApiOperation("获取某一个分类下的所有文章")
-    @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long")
+    @ApiOperation("获取某一个分类下的文章")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long"),
+        @ApiImplicitParam(name = "pageNum", value = "页码数", required = false, dataType = "Integer")
+    })
     @GetMapping("article/list/category/{id}")
-    public Result<List<ArticleWithPictureDto>> listArticleInfo(@PathVariable Long id) {
-        return Result.success(articleService.listByCategoryId(id));
+    public Result<List<ArticleWithPictureDto>> listArticleInfo(@PathVariable Long id,
+                                                               @RequestParam(required = false) Integer pageNum) {
+        if (pageNum != null) {
+            return Result.success(articleService.listByCategoryId(id, pageNum, 8)); // 一页有多少数据就由后端指定
+        }
+        return Result.success(articleService.listByCategoryId(id, null, null));
     }
 
     /**
@@ -105,8 +117,12 @@ public class ForeController {
      * @return
      */
     @ApiOperation("获取所有的留言信息")
+    @ApiImplicitParam(name = "pageNum", value = "页码数", required = false, dataType = "Integer")
     @GetMapping("comment/list")
-    public Result<List<Comment>> listAllComment() {
+    public Result<List<Comment>> listAllComment(@RequestParam(required = false) Integer pageNum) {
+        if (pageNum != null) {
+            return Result.success(commentService.listCommentByPage(pageNum, 8)); // 一页有多少数据就由后端指定
+        }
         return Result.success(commentService.listAllComment());
     }
 
@@ -158,7 +174,7 @@ public class ForeController {
             @ApiImplicitParam(name = "name", value = "用户自定义的名称", required = true, dataType = "String")
     })
     @PostMapping("comment")
-    public Result<CodeMsg> addMessage(@RequestBody Comment comment, HttpServletRequest request) {
+    public Result<CodeMsg> addMessage(Comment comment, HttpServletRequest request) {
 
         String ip = request.getRemoteAddr();
         comment.setIp(ip);

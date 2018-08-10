@@ -46,7 +46,7 @@ public class SysController {
      *
      * @return
      */
-    @ApiOperation("返回所有的SysView信息")
+    @ApiOperation("返回SysView信息")
     @ApiImplicitParam(name = "pageNum", value = "页码数", required = false, dataType = "Integer")
     @GetMapping("/sys/view")
     public Result<List<SysView>> listAllView(@RequestParam(required = false) Integer pageNum) {

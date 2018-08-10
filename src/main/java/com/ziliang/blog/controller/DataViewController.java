@@ -46,5 +46,4 @@ public class DataViewController {
         return Result.success(dataViewService.showSysViewDataViewNowMonth());
     }
 
-
 }

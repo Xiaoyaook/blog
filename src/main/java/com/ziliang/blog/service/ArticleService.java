@@ -25,9 +25,9 @@ public interface ArticleService {
 
     ArticlePicture getPictureByArticleId(Long id);
 
-    List<ArticleWithPictureDto> listAll();
+    List<ArticleWithPictureDto> listArticle(Integer pageNum, Integer pageSize);
 
-    List<ArticleWithPictureDto> listByCategoryId(Long id);
+    List<ArticleWithPictureDto> listByCategoryId(Long id, Integer pageNum, Integer pageSize);
 
     List<ArticleWithPictureDto> listLastest();
 }

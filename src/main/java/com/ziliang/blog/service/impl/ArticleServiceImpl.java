@@ -1,11 +1,13 @@
 package com.ziliang.blog.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
 import com.ziliang.blog.dao.*;
 import com.ziliang.blog.dto.ArticleDto;
 import com.ziliang.blog.dto.ArticleWithPictureDto;
 import com.ziliang.blog.entity.*;
 import com.ziliang.blog.service.ArticleService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -196,14 +198,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     /**
-     * 获取所有的文章内容
+     * 获取文章内容
+     * 若有页码，则返回当前页的数据，否则返回全部
      *
      * @return 封装好的Article集合
      */
     @Override
-    public List<ArticleWithPictureDto> listAll() {
+    public List<ArticleWithPictureDto> listArticle(Integer pageNum, Integer pageSize) {
         // 1.先获取所有的数据
-        List<ArticleWithPictureDto> articles = listAllArticleWithPicture();
+        List<ArticleWithPictureDto> articles = listArticleWithPicture(pageNum, pageSize);
         // 2.然后再对集合进行重排，置顶的文章在前
         LinkedList<ArticleWithPictureDto> list = new LinkedList<>();
         for (ArticleWithPictureDto article: articles) {
@@ -219,14 +222,19 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     /**
-     * 通过分类id返回该分类下的所有文章
+     * 通过分类id返回该分类下的文章
+     * 如果未传入页码和大小，则返回该分类下的所有文章
+     * 否则只返回给定页码的文章
      *
      * @param id 分类ID
-     * @return 对应分类ID下的所有文章(带题图)
+     * @return 对应分类ID下的文章(带题图)
      */
     @Override
-    public List<ArticleWithPictureDto> listByCategoryId(Long id) {
-        // 由categoryId取到所有此分类下的文章
+    public List<ArticleWithPictureDto> listByCategoryId(Long id, Integer pageNum, Integer pageSize) {
+        // 由categoryId取到此分类下的文章
+        if (pageNum != null && pageSize != null) {
+            PageHelper.startPage(pageNum, pageSize);
+        }
         List<ArticleCategory> articleCategories = articleCategoryMapper.selectAllArticleCategoryByCategoryId(id);
         List<ArticleWithPictureDto> articles = new ArrayList<>();
         for (int i = 0; i < articleCategories.size(); i++) {
@@ -276,7 +284,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleWithPictureDto> listLastest() {
         // 1.先获取所有的数据
-        List<ArticleWithPictureDto> articles = listAllArticleWithPicture();
+        List<ArticleWithPictureDto> articles = listArticleWithPicture(null, null);
         // 2.判断是否满足5个的条件
         if (articles.size() >= MAX_LASTEST_ARTICLE_COUNT) {
             // 3.大于5个则返回前五个数据
@@ -302,12 +310,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     /**
-     * 获取所有的文章信息（带题图）
+     * 获取文章信息（带题图）
+     * 若有页码，则返回当页信息，否则返回全部
      *
      * @return
      */
-    private List<ArticleWithPictureDto> listAllArticleWithPicture() {
+    private List<ArticleWithPictureDto> listArticleWithPicture(Integer pageNum, Integer pageSize) {
         // 无添加查询即返回所有
+        if (pageNum != null && pageSize != null) {
+            PageHelper.startPage(pageNum, pageSize);
+        }
         List<ArticleInfo> articleInfos = articleInfoMapper.selectAllArticleInfo();
         List<ArticleWithPictureDto> articles = new ArrayList<>();
         for (ArticleInfo articleInfo : articleInfos) {

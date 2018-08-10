@@ -80,9 +80,18 @@ public class SysServiceImplTest {
 
     @Test
     public void listLogByPageTest() {
-        List<SysLog> logList = sysService.listLogByPage(2,8);
+        List<SysLog> logList = sysService.listLogByPage(1,8);
         for (SysLog sysLog: logList) {
             System.out.println(sysLog);
+        }
+    }
+
+
+    @Test
+    public void listViewByPageTest() {
+        List<SysView> viewList = sysService.listViewByPage(1,10);
+        for (SysView sysView: viewList) {
+            System.out.println(sysView);
         }
     }
 }

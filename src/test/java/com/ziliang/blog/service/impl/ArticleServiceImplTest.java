@@ -79,8 +79,9 @@ public class ArticleServiceImplTest {
 
     @Ignore
     @Test
-    public void listAllTest() {
-        List<ArticleWithPictureDto> articleWithPictureDtos = articleService.listAll();
+    public void listArticlelTest() {
+//        List<ArticleWithPictureDto> articleWithPictureDtos = articleService.listArticle(1, 2);
+        List<ArticleWithPictureDto> articleWithPictureDtos = articleService.listArticle(null, null);
         for (ArticleWithPictureDto articleWithPictureDto: articleWithPictureDtos) {
             System.out.println(articleWithPictureDto);
         }
@@ -89,7 +90,7 @@ public class ArticleServiceImplTest {
     @Ignore
     @Test
     public void listByCategoryIdTest() {
-        List<ArticleWithPictureDto> articleWithPictureDtos = articleService.listByCategoryId(1L);
+        List<ArticleWithPictureDto> articleWithPictureDtos = articleService.listByCategoryId(1L, 1, 8);
         for (ArticleWithPictureDto articleWithPictureDto: articleWithPictureDtos) {
             System.out.println(articleWithPictureDto);
         }

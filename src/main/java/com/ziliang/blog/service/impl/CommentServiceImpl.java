@@ -1,5 +1,6 @@
 package com.ziliang.blog.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.ziliang.blog.dao.ArticleCommentMapper;
 import com.ziliang.blog.dao.CommentMapper;
 import com.ziliang.blog.dto.ArticleCommentDto;
@@ -97,6 +98,18 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> listAllComment() {
         // 无条件查询即返回所有
+        return commentMapper.selectAllComment();
+    }
+
+    /**
+     * 返回所选页码的留言
+     * @param pageNum 页码
+     * @param pageSize 一页的留言条数
+     * @return
+     */
+    @Override
+    public List<Comment> listCommentByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return commentMapper.selectAllComment();
     }
 

@@ -29,7 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用于排除拦截
-        registry.addInterceptor(sysMessageInterceptor).addPathPatterns("/**").excludePathPatterns("/login/do_login", "/js/**", "/css/**", "/img/**");
+        registry.addInterceptor(sysMessageInterceptor).addPathPatterns("/api/**").excludePathPatterns("/login/do_login", "/js/**", "/css/**", "/img/**");
         registry.addInterceptor(adminVerificationInterceptor).addPathPatterns("/**").excludePathPatterns("/login/do_login", "/api/**");
     }
 }

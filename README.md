@@ -6,6 +6,8 @@
 
 利用拦截器进行权限管理，使访客无权限进入管理页面。
 
+利用PageHelper分页。
+
 前端部分： [blogMaster](https://github.com/Xiaoyaook/try-vue/tree/master/blogmaster)
 
 后台需求分析：
